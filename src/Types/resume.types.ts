@@ -21,7 +21,7 @@ export interface Education extends Document {
 
 export interface Skill extends Document {
   category: String;
-  skills: [String];
+  skill: [String];
 }
 
 export interface Experience extends Document {
@@ -85,6 +85,7 @@ export interface Other extends Document {
 }
 
 export interface Resume extends Document {
+  resumeName: String;
   fullName: String;
   socials: Social[];
   summary: String;

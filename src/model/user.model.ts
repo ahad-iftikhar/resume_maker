@@ -1,16 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { Resume } from "@/Types/resume.types";
 
-export interface User extends Document {
-  email: String;
-  password: String;
-  isVerified: Boolean;
-  verifyCode: String;
-  verifyCodeExpiry: String;
-  resume: mongoose.Types.ObjectId[];
+export interface UserInterface extends Document {
+  email: string;
+  password: string;
+  isVerified: boolean;
+  verifyCode: string;
+  verifyCodeExpiry: Date;
+  resumes: mongoose.Types.ObjectId[];
 }
 
-const userSchema: Schema<User> = new Schema({
+const userSchema: Schema<UserInterface> = new Schema({
   email: {
     type: String,
     required: [true, "Email is required"],
@@ -32,12 +31,18 @@ const userSchema: Schema<User> = new Schema({
   },
   verifyCodeExpiry: {
     type: Date,
-    required: [true, "Verufy code expiry is required"],
+    required: [true, "Verify code expiry is required"],
   },
-  resume: [
+  resumes: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Resume",
     },
   ],
 });
+
+const User =
+  (mongoose.models.User as mongoose.Model<UserInterface>) ||
+  mongoose.model<UserInterface>("User", userSchema);
+
+export default User;

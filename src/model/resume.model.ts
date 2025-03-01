@@ -17,7 +17,7 @@ const skillSchema: Schema<Skill> = new Schema({
     type: String,
     required: [true, "Skill category is required"],
   },
-  skills: [String],
+  skill: [String],
 });
 
 const educationSchema: Schema<Education> = new Schema({
@@ -99,19 +99,26 @@ const otherSchema: Schema<Other> = new Schema({
   bullets: [String],
 });
 
-const resumeSchema: Schema<ResumeInterface> = new Schema({
-  fullName: String,
-  socials: [socialSchema],
-  skills: [skillSchema],
-  summary: String,
-  education: [educationSchema],
-  experience: [experienceSchema],
-  projects: [projectSchema],
-  awards: [awardSchema],
-  certifications: [certificationSchema],
-  volunteering: [volunteerSchema],
-  unknownSection: [otherSchema],
-});
+const resumeSchema: Schema<ResumeInterface> = new Schema(
+  {
+    resumeName: {
+      type: String,
+      required: [true, "Resume name is required"],
+    },
+    fullName: String,
+    socials: [socialSchema],
+    skills: [skillSchema],
+    summary: String,
+    education: [educationSchema],
+    experience: [experienceSchema],
+    projects: [projectSchema],
+    awards: [awardSchema],
+    certifications: [certificationSchema],
+    volunteering: [volunteerSchema],
+    unknownSection: [otherSchema],
+  },
+  { timestamps: true }
+);
 
 const Resume =
   (mongoose.models.Resume as mongoose.Model<ResumeInterface>) ||
